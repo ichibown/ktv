@@ -1,16 +1,12 @@
 # KTV
 
-KTV is an ultra lightweight, schema-based binary protocol serialization/deserialization library. KTV is implemented with ansi C, so it is easy to import KTV into many platforms, especially Embedded Systems in IoT.
-
-
+KTV is an ultra lightweight, schema-based binary protocol serialization/deserialization library. It is implemented with ansi C, so it is easy to import KTV into many platforms, especially Embedded Systems in IoT.
 
 ## Usage
 
-It is easy to import and use KTV. Here is an example:
+#### 1️⃣ Copy `ktv.h` & `ktv.c` into you project.
 
-#### 1. Copy `ktv.h` & `ktv.c` into you project.
-
-#### 2. Define a proto file to describe you business data structure
+#### 2️⃣ Define a proto file to describe you business data structure
 
 ```
 #job
@@ -31,7 +27,7 @@ name   *char
 mentor *user
 ```
 
-#### 3. Parse proto text into binary
+#### 3️⃣ Parse proto text into binary
 
 Save proto into a text file `example.proto` and then run the following script
 
@@ -41,7 +37,7 @@ python proto_parser.py example.proto
 
 This will generate `example.proto.bin`
 
-#### 4. Use the `proto.bin` in ktv lib
+#### 4️⃣ Use the `proto.bin` in ktv lib
 
 ```c
 // load proto.bin
@@ -78,19 +74,11 @@ ktv_obj_decode(recieved_user_obj, received_user_buffer);
 char* received_name = ktv_obj_get_string(received_user_obj, "name");
 ```
 
-
-
 >  More examples see [ktv_test.c](https://github.com/BownX/ktv/blob/master/ktv_test.c)
-
-
-
-***
-
-
 
 ## API
 
-#### Proto
+### Proto
 
 - starts with `#` to define a model 
 - starts with `*` to define an array
@@ -101,7 +89,7 @@ char* received_name = ktv_obj_get_string(received_user_obj, "name");
   - int2: signed 2 bytes
   - int4: signed 4 bytes
 
-#### ktv_obj
+### ktv_obj
 
 ```c
 /**
@@ -137,10 +125,10 @@ void ktv_obj_set_array(ktv_obj *obj, const char *alias, ktv_array *value);
 ktv_array *ktv_obj_get_array(ktv_obj *obj, const char *alias);
 ```
 
-#### ktv_array
+### ktv_array
 
 ```c
-**
+/**
  * create an array by type
  */
 ktv_array *ktv_array_new_string(ktv_obj *obj, const char *alias, char *values, uint16_t count);
@@ -165,7 +153,7 @@ ktv_obj *ktv_array_get_obj(ktv_array *array, uint16_t index);
 void ktv_array_set_obj(ktv_array *array, uint16_t index, ktv_obj *obj);
 ```
 
-#### ktv_buffer & encode/decode
+### ktv_buffer & encode/decode
 
 ```c
 /**
@@ -189,7 +177,7 @@ ktv_buffer *ktv_buffer_new(uint8_t *buffer, size_t size);
 void ktv_buffer_delete(ktv_buffer *buffer);
 ```
 
-#### JSON API
+### JSON API
 
 With the help of [cJSON](https://github.com/DaveGamble/cJSON), we can easily convert a JSON string to ktv_obj and vice versa. That will be more convenient for platforms like Android, iOS, wasm to use KTV.
 
@@ -200,8 +188,4 @@ char *ktv_obj_to_json(ktv_obj *obj);
 void ktv_obj_from_json(ktv_obj *obj, char *json);
 ```
 
-
-
 > More ktv JSON examples  in [ktv_json_test.c](https://github.com/BownX/ktv/blob/master/ktv_json_test.c)
-
-
