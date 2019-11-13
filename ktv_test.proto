@@ -1,0 +1,30 @@
+#job
+title  *char    // 职位
+type   byte     // 分类
+
+#task
+id     int2 
+status byte
+time   *int4
+
+#user
+age    byte
+gender byte
+job    job
+tasks  *task
+name   *char
+mentor *user
+
+// 下面是 Benchmark 使用 https://github.com/cloudwu/sproto 的数据结构 
+#Person
+name *char
+id int4
+email *char
+phone *PhoneNumber
+
+#PhoneNumber
+number *char
+type byte
+
+#AddressBook
+person *Person
